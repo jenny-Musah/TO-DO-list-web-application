@@ -18,5 +18,10 @@ public class ListController {
     public ResponseEntity<?> createList(@RequestBody CreateListRequest createListRequest, @PathVariable long userId){
         return new ResponseEntity<>(todoService.createList(createListRequest,userId), HttpStatus.OK);
     }
+      @GetMapping ("/{userId}")
+    public ResponseEntity<?> viewList(@PathVariable long userId){
+        return new ResponseEntity<>(todoService.viewList(userId), HttpStatus.OK);
+    }
+
 
 }

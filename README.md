@@ -100,6 +100,8 @@
 * Method : POST
 * Header :
   * `Content-Type : application/json`
+* Parameter :
+  * `userId : long`
 * Body:
 ```
 {
@@ -132,4 +134,42 @@
 {
     Date format is invalid enter date in this format: "dd/MM/yyyy" 
 }
+```
+# View all lists
+*This end-point allows user to view all existing to-do lists. It is a get request that returns all the user saved lists.*
+# Request
+* Url : `localhost:8080/api/v1/list/create/{userId}`
+* Method : GET
+* Header :
+  * `Content-Type : application/json`
+* Parameter : 
+  * `userId : long` 
+# Response
+*successful request.*
+* Status code : `200 ok`
+* Body:
+```
+[
+    {
+        "listName": "Monday food list",
+        "description": "Rice, fish brook, yellow soup",
+        "localDate": "2023-06-20",
+        "completed": false,
+        "priority": "HIGH"
+    },
+    {
+        "listName": "Monday food list",
+        "description": "Rice, fish brook, yellow soup",
+        "localDate": "2023-06-20",
+        "completed": false,
+        "priority": "HIGH"
+    },
+    {
+        "listName": "Tuesday food list",
+        "description": "French fries, fish brook, yellow soup",
+        "localDate": "2023-05-01",
+        "completed": false,
+        "priority": "HIGH"
+    }
+]
 ```

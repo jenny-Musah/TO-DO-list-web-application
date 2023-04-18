@@ -41,5 +41,16 @@ class TodoServiceImplTest {
                 "high");
         assertThrows(InvalidDetails.class, () -> todoService.createList(createListRequest, response.getId()));
     }
+    @Test
+    public void testThatUserCanViewAllList(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        todoService.createList(createListRequest,response.getId());
+        todoService.createList(createListRequest,response.getId());
+        assertEquals(2, todoService.viewList(response.getId()).size());
+    }
 
 }
