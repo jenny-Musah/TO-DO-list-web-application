@@ -3,6 +3,7 @@ package com.example.todolist.services.user;
 import com.example.todolist.data.dto.requests.UserLoginRequest;
 import com.example.todolist.data.dto.requests.UserSignupRequest;
 import com.example.todolist.data.dto.response.Response;
+import com.example.todolist.data.models.Todo;
 import com.example.todolist.data.models.User;
 import com.example.todolist.data.repositories.UserRepository;
 import com.example.todolist.utils.Validate;
@@ -16,6 +17,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired private UserRepository userRepository;
 
+    @Override public User findUser(long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new InvalidDetails("User is not registered..."));
+    }
+
     @Override public Response signup(UserSignupRequest userSignupRequest) {
         if(!Validate.isEmailValid(userSignupRequest.getEmail()) || !Validate.isPasswordValid(userSignupRequest.getPassword())) throw new InvalidDetails("Invalid details");
         User user = userRepository.findUserByEmailAddress(userSignupRequest.getEmail());
@@ -28,6 +33,12 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.findUserByEmailAddress(userLoginRequest.getEmail());
         if(savedUser == null || !BCrypt.checkpw(userLoginRequest.getPassword(),savedUser.getPassword())) throw new InvalidDetails("Invalid login details");
         return new Response(savedUser.getId(),"Logged in successfully");
+    }
+
+    @Override public void addNewToDoList(Todo savedToDo, long id) {
+        User savedUser = userRepository.findById(id).orElseThrow(() -> new InvalidDetails("User is not registered yet..."));
+        savedUser.getUsersLists().add(savedToDo);
+        userRepository.save(savedUser);
     }
 
     private User createUser(UserSignupRequest userSignupRequest){

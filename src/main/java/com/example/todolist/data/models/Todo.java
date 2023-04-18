@@ -16,6 +16,7 @@ public class Todo {
     private LocalDate dueDate;
     @Enumerated
     private Priority priority;
+    private boolean completed;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
