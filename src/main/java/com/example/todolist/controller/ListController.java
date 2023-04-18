@@ -23,5 +23,9 @@ public class ListController {
         return new ResponseEntity<>(todoService.viewList(userId), HttpStatus.OK);
     }
 
+    @PostMapping("/update/{listId}")
+    public ResponseEntity<?> updateList(@RequestBody CreateListRequest createListRequest, @PathVariable long listId){
+        return new ResponseEntity<>(todoService.updateList(createListRequest,listId), HttpStatus.OK);
+    }
 
 }

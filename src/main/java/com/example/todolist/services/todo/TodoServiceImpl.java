@@ -42,10 +42,22 @@ public class TodoServiceImpl implements TodoService{
         return viewList;
     }
 
+    @Override
+        public Response updateList(CreateListRequest createListRequest, long listId) {
+        Todo todo = listRepository.findById(listId).orElseThrow(() -> new InvalidDetails("List id is incorrect"));
+        if(createListRequest.getListName() != null && !createListRequest.getListName().isBlank() && !createListRequest.getListName().isEmpty())todo.setListName(createListRequest.getListName());
+        if(createListRequest.getDescription() != null && !createListRequest.getDescription().isBlank() && !createListRequest.getDescription().isEmpty())todo.setDescription(createListRequest.getDescription());
+        if(createListRequest.getDueDate() != null && !createListRequest.getDueDate().isBlank() && !createListRequest.getDueDate().isEmpty())todo.setDueDate(LocalDate.parse(createListRequest.getDueDate(),dateTimeFormatter));
+        if(createListRequest.getPriority() != null && !createListRequest.getPriority().isBlank() && !createListRequest.getPriority().isEmpty())todo.setPriority(
+                Priority.valueOf(createListRequest.getPriority().toUpperCase()));
+        userService.updateLists(todo);
+        return new Response(todo.getId(),"Updated successfully");
+    }
+
     private ViewToDoListResponse createViewResponse(Todo todo ){
         ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
         viewToDoListResponse.setListName(todo.getListName());
-        viewToDoListResponse.setLocalDate(String.valueOf(todo.getDueDate()));
+        viewToDoListResponse.setDueDate(String.valueOf(todo.getDueDate()));
         viewToDoListResponse.setDescription(todo.getDescription() );
         viewToDoListResponse.setPriority(String.valueOf(todo.getPriority()));
         viewToDoListResponse.setCompleted(todo.isCompleted());

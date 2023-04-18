@@ -126,6 +126,9 @@
     "message": "Todo list added successfully"
 }
 ```
+* Fields:
+  * `id`(long): *The list id*
+  * `message`(String): *Request message*
 # Response 2
 *unsuccessful request due to invalid date.*
 * Status code : `400 bad request`
@@ -153,23 +156,64 @@
     {
         "listName": "Monday food list",
         "description": "Rice, fish brook, yellow soup",
-        "localDate": "2023-06-20",
+        "dueDate": "2023-06-20",
         "completed": false,
         "priority": "HIGH"
     },
     {
         "listName": "Monday food list",
         "description": "Rice, fish brook, yellow soup",
-        "localDate": "2023-06-20",
+        "dueDate": "2023-06-20",
         "completed": false,
         "priority": "HIGH"
     },
     {
         "listName": "Tuesday food list",
         "description": "French fries, fish brook, yellow soup",
-        "localDate": "2023-05-01",
+        "dueDate": "2023-05-01",
         "completed": false,
         "priority": "HIGH"
     }
 ]
 ```
+* Fields:
+  * `listName`(required,String): *To-do list name*
+  * `description`(required,String): *Tasks on the list*
+  * `dueDate`(required,String): *Date at which task should be executed*
+  * `priority`(required,String)*Priority of task*
+# Update to-do list
+*This end-point allows users update/edit their list, it accepts list name, description, due date, priority , however these fields could be left blank or empty as it has no effect on the initial data, it returns the list id and  a message*
+# Request
+* Url : `localhost:8080/api/v1/list/update/{listId}`
+* Method : POST
+* Header :
+  * `Content-Type : application/json`
+* Parameter :
+  * `listId : long`
+* Body:
+```
+{
+     "listName" : "Friday food list",
+     "description" : "French fries, fish brook, yellow soup",
+     "dueDate" : "01/05/2023",
+     "priority" : "HIGH"
+}
+```
+* Fields:
+  * `listName`(required,String): *To-do list name*
+  * `description`(required,String): *Tasks on the list*
+  * `dueDate`(required,String): *Date at which task should be executed*
+  * `priority`(required,String)*Priority of task*
+# Response
+*successful request.*
+* Status code : `200 ok`
+* Body:
+```
+{
+    "id": 1,
+    "message": "Updated successfully"
+}
+```
+* Fields:
+  * `id`(long): *The list id*
+  * `message`(String): *Request message*

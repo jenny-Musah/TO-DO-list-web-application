@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 public class ViewToDoListResponse {
     private String listName;
     private String description;
-    private String Priority;
-    private String localDate;
+    private String priority;
+    private String dueDate;
     private boolean completed;
-
 }

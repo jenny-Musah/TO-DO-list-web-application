@@ -41,6 +41,18 @@ public class UserServiceImpl implements UserService {
         userRepository.save(savedUser);
     }
 
+    @Override public void updateLists(Todo todo) {
+        User user  = findUser(todo.getUser().getId());
+        for(Todo todo1: user.getUsersLists()){
+            if(todo1.getId() == todo.getId()){
+                user.getUsersLists().remove(todo1);
+                user.getUsersLists().add(todo);
+                userRepository.save(user);
+                break;
+            }
+        }
+    }
+
     private User createUser(UserSignupRequest userSignupRequest){
         User user = new User();
         user.setEmailAddress(userSignupRequest.getEmail());

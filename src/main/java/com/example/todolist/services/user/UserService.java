@@ -15,4 +15,6 @@ public interface UserService {
     Response login(UserLoginRequest userLoginRequest);
 
     void addNewToDoList(Todo savedToDo, long id);
+
+    void updateLists(Todo todo);
 }
