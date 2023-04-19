@@ -12,7 +12,7 @@
 * Search for a todo list by title or description
 * Error handling and validation to prevent invalid inputs
 
-#End-points
+# End-points
 
 # Signup end-point
 *This end-point creates a new user, it accepts a email address and password which is saved in the database and then returns the user id and a message.*
