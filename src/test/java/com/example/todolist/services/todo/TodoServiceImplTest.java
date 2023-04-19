@@ -1,6 +1,7 @@
 package com.example.todolist.services.todo;
 
 import com.example.todolist.data.dto.requests.CreateListRequest;
+import com.example.todolist.data.dto.requests.SearchRequest;
 import com.example.todolist.data.dto.requests.UserSignupRequest;
 import com.example.todolist.data.dto.response.Response;
 import com.example.todolist.data.dto.response.ViewToDoListResponse;
@@ -139,6 +140,66 @@ class TodoServiceImplTest {
         viewToDoListResponse.setDescription(createListRequest.getDescription());
         viewToDoListResponse.setDueDate("2023-06-04");
         assertEquals(viewToDoListResponse, todoService.viewToDo(response1.getId()));
+    }
+
+    @Test
+    public void testThatUserCanSearchForListWithListName(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        Response response1 = todoService.createList(createListRequest,response.getId());
+        ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
+        viewToDoListResponse.setListName(createListRequest.getListName());
+        viewToDoListResponse.setPriority(createListRequest.getPriority().toUpperCase());
+        viewToDoListResponse.setDescription(createListRequest.getDescription());
+        viewToDoListResponse.setDueDate("2023-06-04");
+        SearchRequest searchRequest = new SearchRequest(createListRequest.getListName());
+        assertEquals(1, todoService.searchForTodoList(searchRequest,response.getId()).size());
+    }
+    @Test
+    public void testThatUserCanSearchForListWithDescription(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        Response response1 = todoService.createList(createListRequest,response.getId());
+        SearchRequest searchRequest = new SearchRequest(createListRequest.getDescription());
+        assertEquals(1, todoService.searchForTodoList(searchRequest,response.getId()).size());
+    }
+    @Test
+    public void testThatUserCanSearchForListWithSomePartOfDescription(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        Response response1 = todoService.createList(createListRequest,response.getId());
+        ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
+        viewToDoListResponse.setListName(createListRequest.getListName());
+        viewToDoListResponse.setPriority(createListRequest.getPriority().toUpperCase());
+        viewToDoListResponse.setDescription(createListRequest.getDescription());
+        viewToDoListResponse.setDueDate("2023-06-04");
+        SearchRequest searchRequest = new SearchRequest("Cook rice, eat spicy chicken");
+        assertEquals(1, todoService.searchForTodoList(searchRequest,response.getId()).size());
+    }
+    @Test
+    public void testThatTheSizeOfTheSearchListWhenWrongDetailsAreUsedToSearchIsZero(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        Response response1 = todoService.createList(createListRequest,response.getId());
+        ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
+        viewToDoListResponse.setListName(createListRequest.getListName());
+        viewToDoListResponse.setPriority(createListRequest.getPriority().toUpperCase());
+        viewToDoListResponse.setDescription(createListRequest.getDescription());
+        viewToDoListResponse.setDueDate("2023-06-04");
+        SearchRequest searchRequest = new SearchRequest(" i am jenny");
+        assertEquals(0, todoService.searchForTodoList(searchRequest,response.getId()).size());
     }
 
 }

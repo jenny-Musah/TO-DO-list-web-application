@@ -251,3 +251,55 @@
 ```
 List does not exist
 ```
+# Search for to-do end-point
+*This end-point allows users to easily search for a to-do list from thier lists of to-dos using the to-do list name or the list description. it accepts a search word and returns a list of search result*
+# Request
+* Url: `localhost:8080/api/v1/list/search/{userId}`
+* Method : POST
+* Header :
+  * `Content-Type : application/json`
+* Parameter :
+  * `listId : long` 
+* Body:
+```
+{
+    "searchWord" : "Chicken stew, "
+}
+```
+* Field :
+    * `searchWord`(required,String): *This is the word used to search*
+# Response 1
+*Successful request.*
+* Status code : `200 ok`
+* Body:
+```
+[
+    {
+        "listName": "my meal",
+        "description": "Chicken stew, white soup",
+        "priority": "LOW",
+        "dueDate": "2023-05-01",
+        "completed": false
+    },
+    {
+        "listName": "Food list",
+        "description": "Chicken stew, white soup",
+        "priority": "LOW",
+        "dueDate": "2023-05-01",
+        "completed": false
+    }
+]
+```
+* Fields :
+  * `listName`(required,String): *To-do list name*
+  * `description`(required,String): *Tasks on the list*
+  * `dueDate`(required,String): *Date at which task should be executed*
+  * `priority`(required,String)*Priority of task*
+* 
+# Response 2
+*Unsuccessful request due to non-existing search word*
+* Status code : `200 ok`
+* Body:
+```
+[]
+```

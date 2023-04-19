@@ -1,6 +1,7 @@
 package com.example.todolist.controller;
 
 import com.example.todolist.data.dto.requests.CreateListRequest;
+import com.example.todolist.data.dto.requests.SearchRequest;
 import com.example.todolist.services.todo.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,10 @@ public class ListController {
     @GetMapping("/todo/{listId}")
     public ResponseEntity<?> viewTodo(@PathVariable long listId){
         return new ResponseEntity<>(todoService.viewToDo(listId), HttpStatus.OK);
+    }
+    @PostMapping("/search/{userId}")
+    public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest, @PathVariable long userId){
+        return new ResponseEntity<>(todoService.searchForTodoList(searchRequest,userId), HttpStatus.OK);
     }
 
 }

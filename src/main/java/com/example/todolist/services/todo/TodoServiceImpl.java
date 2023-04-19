@@ -1,6 +1,7 @@
 package com.example.todolist.services.todo;
 
 import com.example.todolist.data.dto.requests.CreateListRequest;
+import com.example.todolist.data.dto.requests.SearchRequest;
 import com.example.todolist.data.dto.response.Response;
 import com.example.todolist.data.dto.response.ViewToDoListResponse;
 import com.example.todolist.data.models.Priority;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TodoServiceImpl implements TodoService{
@@ -57,6 +59,17 @@ public class TodoServiceImpl implements TodoService{
 
     @Override public ViewToDoListResponse viewToDo(long id) {
         return createViewResponse(listRepository.findById(id).orElseThrow(() -> new InvalidDetails("List does not exist")));
+    }
+
+    @Override public List<ViewToDoListResponse> searchForTodoList(SearchRequest searchRequest, long userId) {
+        User user = userService.findUser(userId);
+        List<ViewToDoListResponse> searchResult = new ArrayList<>();
+        for(Todo todo : user.getUsersLists()){
+            if(Objects.equals(todo.getListName(), searchRequest.getSearchWord()) || todo.getDescription().contains(searchRequest.getSearchWord())){
+                searchResult.add(createViewResponse(todo));
+            }
+        }
+        return searchResult;
     }
 
     private ViewToDoListResponse createViewResponse(Todo todo ){
