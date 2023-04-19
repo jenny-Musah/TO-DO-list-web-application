@@ -1,5 +1,17 @@
 # ToDo list web application
-*This is a To-do list web application that help users with personal organization of daily activities, schedule planning and personal management. The application is built using Java Spring Boot, with a MySQL database . The project uses Git for version control.*
+*This is a To-do list web application that help users with personal organization of daily activities, schedule planning and personal task management. The application is built using Java Spring Boot, with a MySQL database . The project uses Git for version control.*
+# Features:
+* User registration
+* User authentication
+* Create todo list
+* View list of todos
+* View a todo list
+* Update a todo list
+* Delete a todo list
+* Delete all todo list
+* Search for a todo list by title or description
+* Error handling and validation to prevent invalid inputs
+
 
 # Signup end-point
 *This end-point creates a new user, it accepts a email address and password which is saved in the database and then returns the user id and a message.*
