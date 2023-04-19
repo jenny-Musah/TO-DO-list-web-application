@@ -51,7 +51,12 @@ public class TodoServiceImpl implements TodoService{
         if(createListRequest.getPriority() != null && !createListRequest.getPriority().isBlank() && !createListRequest.getPriority().isEmpty())todo.setPriority(
                 Priority.valueOf(createListRequest.getPriority().toUpperCase()));
         userService.updateLists(todo);
+        listRepository.save(todo);
         return new Response(todo.getId(),"Updated successfully");
+    }
+
+    @Override public ViewToDoListResponse viewToDo(long id) {
+        return createViewResponse(listRepository.findById(id).orElseThrow(() -> new InvalidDetails("List does not exist")));
     }
 
     private ViewToDoListResponse createViewResponse(Todo todo ){

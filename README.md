@@ -93,7 +93,7 @@
    Invalid login details
 }
 ```
-# Create to-do list
+# Create to-do list end-point
 *This end-point is for creating a new to-do list, the end-point accepts,list name, description,due date for list execution, priority of the list and returns the list id and a message.*
 # Request
 * Url : `localhost:8080/api/v1/list/create/{userId}`
@@ -138,7 +138,7 @@
     Date format is invalid enter date in this format: "dd/MM/yyyy" 
 }
 ```
-# View all lists
+# View all lists end-point
 *This end-point allows user to view all existing to-do lists. It is a get request that returns all the user saved lists.*
 # Request
 * Url : `localhost:8080/api/v1/list/create/{userId}`
@@ -181,7 +181,7 @@
   * `description`(required,String): *Tasks on the list*
   * `dueDate`(required,String): *Date at which task should be executed*
   * `priority`(required,String)*Priority of task*
-# Update to-do list
+# Update to-do list end-point
 *This end-point allows users update/edit their list, it accepts list name, description, due date, priority , however these fields could be left blank or empty as it has no effect on the initial data, it returns the list id and  a message*
 # Request
 * Url : `localhost:8080/api/v1/list/update/{listId}`
@@ -217,3 +217,37 @@
 * Fields:
   * `id`(long): *The list id*
   * `message`(String): *Request message*
+# View todo end-point
+*This end-point allows user to view a single list. it is a get request.*
+# Request
+* Url : `localhost:8080/api/v1/list/todo/{listId}`
+* Method : GET
+* Header :
+  * `Content-Type : application/json`
+* Parameter :
+  * `listId : long` 
+# Response 1
+*successful request.*
+* Status code : `200 ok`
+* Body:
+```
+{
+    "listName": "Chicken meal table",
+    "description": "Chicken stew, white soup",
+    "priority": "LOW",
+    "dueDate": "2023-05-01",
+    "completed": false
+}
+```
+* Fields:
+  * `listName`(required,String): *To-do list name*
+  * `description`(required,String): *Tasks on the list*
+  * `dueDate`(required,String): *Date at which task should be executed*
+  * `priority`(required,String)*Priority of task*
+# Response 2
+*Unsuccessful request.*
+* Status code : `400 bad request`
+* Body:
+```
+List does not exist
+```

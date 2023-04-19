@@ -28,4 +28,9 @@ public class ListController {
         return new ResponseEntity<>(todoService.updateList(createListRequest,listId), HttpStatus.OK);
     }
 
+    @GetMapping("/todo/{listId}")
+    public ResponseEntity<?> viewTodo(@PathVariable long listId){
+        return new ResponseEntity<>(todoService.viewToDo(listId), HttpStatus.OK);
+    }
+
 }

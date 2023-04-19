@@ -12,4 +12,6 @@ public interface TodoService {
     List<ViewToDoListResponse> viewList(long userId);
 
     Response updateList(CreateListRequest createListRequest,long listId);
+
+    ViewToDoListResponse viewToDo(long id);
 }

@@ -106,6 +106,39 @@ class TodoServiceImplTest {
                 "");
         assertEquals("Updated successfully", todoService.updateList(createListRequest, response1.getId()).getMessage());
     }
-
+    @Test
+    public void testThatUserCanViewASingleList(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        Response response1 = todoService.createList(createListRequest,response.getId());
+        ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
+        viewToDoListResponse.setListName(createListRequest.getListName());
+        viewToDoListResponse.setPriority(createListRequest.getPriority().toUpperCase());
+        viewToDoListResponse.setDescription(createListRequest.getDescription());
+        viewToDoListResponse.setDueDate("2023-06-04");
+        assertEquals(viewToDoListResponse, todoService.viewToDo(response1.getId()));
+    }
+    @Test
+    public void testThatUserCanViewASingleListAfterUpdate(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        Response response1 = todoService.createList(createListRequest,response.getId());
+        CreateListRequest updateListRequest = new CreateListRequest("YummyYummy",
+                "","",
+                "");
+        todoService.updateList(updateListRequest, response1.getId());
+        ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
+        viewToDoListResponse.setListName(updateListRequest.getListName());
+        viewToDoListResponse.setPriority(createListRequest.getPriority().toUpperCase());
+        viewToDoListResponse.setDescription(createListRequest.getDescription());
+        viewToDoListResponse.setDueDate("2023-06-04");
+        assertEquals(viewToDoListResponse, todoService.viewToDo(response1.getId()));
+    }
 
 }
