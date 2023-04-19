@@ -13,5 +13,4 @@ public class ViewToDoListResponse {
     private String description;
     private String priority;
     private String dueDate;
-    private boolean completed;
 }

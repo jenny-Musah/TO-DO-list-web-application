@@ -72,13 +72,22 @@ public class TodoServiceImpl implements TodoService{
         return searchResult;
     }
 
+    @Override public Response deleteList(long userId) {
+        userService.deleteList(userId);
+        for(Todo todo : listRepository.findAll()){
+            if(todo.getUser().getId() == userId){
+                listRepository.delete(todo);
+            }
+        }
+        return new Response(userId,"All lists deleted");
+    }
+
     private ViewToDoListResponse createViewResponse(Todo todo ){
         ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
         viewToDoListResponse.setListName(todo.getListName());
         viewToDoListResponse.setDueDate(String.valueOf(todo.getDueDate()));
         viewToDoListResponse.setDescription(todo.getDescription() );
         viewToDoListResponse.setPriority(String.valueOf(todo.getPriority()));
-        viewToDoListResponse.setCompleted(todo.isCompleted());
         return viewToDoListResponse;
     }
     public Todo createTodo(CreateListRequest createListRequest, User user){

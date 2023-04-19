@@ -53,6 +53,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override public void deleteList(long userId) {
+        User user = findUser(userId);
+        user.getUsersLists().clear();
+        userRepository.save(user);
+    }
+
     private User createUser(UserSignupRequest userSignupRequest){
         User user = new User();
         user.setEmailAddress(userSignupRequest.getEmail());

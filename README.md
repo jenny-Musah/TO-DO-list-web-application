@@ -303,3 +303,23 @@ List does not exist
 ```
 []
 ```
+# Delete List end-point
+*This end-point allows user delete all their todos. It is a delete request that returns a id and a message.*
+# Request
+* Url : `localhost:8080/api/v1/list/{userId}`
+* Method : DELETE
+* Parameter :
+  * `userId : long`
+# Response
+*Successful request.*
+* Status code: `200 ok`
+* Body:
+```
+{
+    "id": 1,
+    "message": "All lists deleted"
+}
+```
+* Fields:
+  * `id`(long): *The users id*
+  * `message`(String): *Request message*

@@ -201,5 +201,22 @@ class TodoServiceImplTest {
         SearchRequest searchRequest = new SearchRequest(" i am jenny");
         assertEquals(0, todoService.searchForTodoList(searchRequest,response.getId()).size());
     }
+    @Test
+    public void testThatUserCanDeleteAllList(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        Response response1 = todoService.createList(createListRequest,response.getId());
+        CreateListRequest createListRequest2 = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+            todoService.createList(createListRequest2,response.getId());
+            assertEquals(2,todoService.viewList(response.getId()).size());
+            todoService.deleteList(response.getId());
+            assertEquals(0, todoService.viewList(response.getId()).size());
+
+    }
 
 }

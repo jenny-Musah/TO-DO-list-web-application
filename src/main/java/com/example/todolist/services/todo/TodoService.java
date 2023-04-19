@@ -17,4 +17,7 @@ public interface TodoService {
     ViewToDoListResponse viewToDo(long id);
 
     List<ViewToDoListResponse> searchForTodoList(SearchRequest searchRequest,long userId);
+
+    Response deleteList(long id);
 }
+
