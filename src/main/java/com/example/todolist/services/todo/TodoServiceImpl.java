@@ -82,6 +82,13 @@ public class TodoServiceImpl implements TodoService{
         return new Response(userId,"All lists deleted");
     }
 
+    @Override public Response deleteTodo(long listId) {
+        Todo todo = listRepository.findById(listId).orElseThrow(() -> new InvalidDetails("List does not exist.."));
+        listRepository.delete(todo);
+        userService.deleteTodo(todo);
+        return new Response(listId, "Todo deleted");
+    }
+
     private ViewToDoListResponse createViewResponse(Todo todo ){
         ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
         viewToDoListResponse.setListName(todo.getListName());

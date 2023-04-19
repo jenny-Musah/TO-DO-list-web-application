@@ -19,4 +19,6 @@ public interface UserService {
     void updateLists(Todo todo);
 
     void deleteList(long userId);
+
+    void deleteTodo(Todo todo);
 }

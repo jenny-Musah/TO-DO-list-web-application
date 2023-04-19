@@ -37,9 +37,13 @@ public class ListController {
     public ResponseEntity<?> search(@RequestBody SearchRequest searchRequest, @PathVariable long userId){
         return new ResponseEntity<>(todoService.searchForTodoList(searchRequest,userId), HttpStatus.OK);
     }
-    @DeleteMapping("/{userId}")
+    @DeleteMapping("/delete/{userId}")
     public ResponseEntity<?> deleteList(@PathVariable long userId){
         return new ResponseEntity<>(todoService.deleteList(userId), HttpStatus.OK);
+    }
+    @DeleteMapping("/delete/todo/{listId}")
+    public ResponseEntity<?> deleteTodo(@PathVariable long listId){
+        return new ResponseEntity<>(todoService.deleteTodo(listId), HttpStatus.OK);
     }
 
 }

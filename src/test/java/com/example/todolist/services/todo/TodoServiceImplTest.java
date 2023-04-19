@@ -218,5 +218,21 @@ class TodoServiceImplTest {
             assertEquals(0, todoService.viewList(response.getId()).size());
 
     }
+    @Test
+    public void testThatUserCanDeleteASingleTodo(){
+        UserSignupRequest userSignupRequest = new UserSignupRequest("jennymusah90@gmail.com", "didiTinka673@89");
+        Response response = userService.signup(userSignupRequest);
+        CreateListRequest createListRequest = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        Response response1 = todoService.createList(createListRequest,response.getId());
+        CreateListRequest createListRequest2 = new CreateListRequest("Mondays food list",
+                "Cook rice, eat spicy chicken, fry chicken","04/06/2023",
+                "high");
+        todoService.createList(createListRequest2,response.getId());
+        assertEquals(2,todoService.viewList(response.getId()).size());
+        todoService.deleteTodo(response1.getId());
+        assertEquals(1, todoService.viewList(response.getId()).size());
+    }
 
 }
