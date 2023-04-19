@@ -38,9 +38,7 @@ public class TodoServiceImpl implements TodoService{
     @Override public List<ViewToDoListResponse> viewList(long userId) {
         User user = userService.findUser(userId);
         List<ViewToDoListResponse> viewList = new ArrayList<>();
-        for( Todo todo : user.getUsersLists()){
-            viewList.add(createViewResponse(todo));
-        }
+        for( Todo todo : user.getUsersLists())viewList.add(createViewResponse(todo));
         return viewList;
     }
 
