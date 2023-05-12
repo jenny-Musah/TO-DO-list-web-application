@@ -17,7 +17,7 @@
 # Signup end-point
 *This end-point creates a new user, it accepts a email address and password which is saved in the database and then returns the user id and a message.*
 # Request
-* Url : `localhost:8080/api/v1/users/signup`
+* Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/users/signup`
 * Method : POST
 * Header : 
   * `Content-Type : application/json`
@@ -70,7 +70,7 @@
 # Login end-point
 *This end-point is for authentication, it ensures only registered users can access applications end-points. It accepts the email address and password the user used in signing up it then checks if the email exist and also compares the hashed password in the database to the one the user entered if they match it returns the user id and a message.*
 # Request
-* Url : `localhost:8080/api/v1/users/login`
+* Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/users/login`
 * Method : POST
 * Header :
   * `Content-Type : application/json`
@@ -109,7 +109,7 @@
 # Create to-do list end-point
 *This end-point is for creating a new to-do list, the end-point accepts,list name, description,due date for list execution, priority of the list and returns the list id and a message.*
 # Request
-* Url : `localhost:8080/api/v1/list/create/{userId}`
+* Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/create/1`
 * Method : POST
 * Header :
   * `Content-Type : application/json`
@@ -154,7 +154,7 @@
 # View all lists end-point
 *This end-point allows user to view all existing to-do lists. It is a get request that returns all the user saved lists.*
 # Request
-* Url : `localhost:8080/api/v1/list/create/{userId}`
+* Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/1`
 * Method : GET
 * Header :
   * `Content-Type : application/json`
@@ -197,7 +197,7 @@
 # Update to-do list end-point
 *This end-point allows users update/edit their list, it accepts list name, description, due date, priority , however these fields could be left blank or empty as it has no effect on the initial data, it returns the list id and  a message*
 # Request
-* Url : `localhost:8080/api/v1/list/update/{listId}`
+* Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/update/2`
 * Method : POST
 * Header :
   * `Content-Type : application/json`
@@ -233,7 +233,7 @@
 # View todo end-point
 *This end-point allows user to view a single list. it is a get request.*
 # Request
-* Url : `localhost:8080/api/v1/list/todo/{listId}`
+* Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/todo/2`
 * Method : GET
 * Header :
   * `Content-Type : application/json`
@@ -267,7 +267,7 @@ List does not exist
 # Search for to-do end-point
 *This end-point allows users to easily search for a to-do list from thier lists of to-dos using the to-do list name or the list description. it accepts a search word and returns a list of search result*
 # Request
-* Url: `localhost:8080/api/v1/list/search/{userId}`
+* Url: `https://to-do-list-web-application-production.up.railway.app/api/v1/list/search/1`
 * Method : POST
 * Header :
   * `Content-Type : application/json`
@@ -319,7 +319,7 @@ List does not exist
 # Delete List end-point
 *This end-point allows user delete all their todos. It is a delete request that returns a id and a message.*
 # Request
-* Url : `localhost:8080/api/v1/list/delete/{userId}`
+* Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/delete/1`
 * Method : DELETE
 * Parameter :
   * `userId : long`
@@ -340,7 +340,7 @@ List does not exist
 # Delete Todo end-point
 *This end-point allows user delete just a single to-do.*
 # Request
-* Url : `localhost:8080/api/v1/list/{listId}`
+* Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/delete/todo/1`
 * Method : DELETE
 * Parameter :
   * `listId : long`
