@@ -23,6 +23,5 @@ public class MailServiceImpl implements MailService {
                 This is to reminder you that you have not yet completed your task, Here are the task\n
                 """ + email);
         javaMailSender.send(simpleMailMessage);
-
     }
 }
