@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @EnableScheduling
@@ -102,7 +103,7 @@ public class UserServiceImpl implements UserService {
                     notExpiredTodo.add(createViewResponse(todo));
                 }
             }
-           if(!notExpiredTodo.toString().equals("[]")) mailService.send(user.getEmailAddress(),notExpiredTodo.toString(),"Daily Reminder");
+           if(!Objects.equals(notExpiredTodo.toString(), "[]")){mailService.send(user.getEmailAddress(),notExpiredTodo.toString(),"Daily Reminder");}
         }
 
     }
