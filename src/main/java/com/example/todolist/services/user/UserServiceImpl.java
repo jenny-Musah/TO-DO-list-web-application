@@ -10,6 +10,7 @@ import com.example.todolist.data.repositories.UserRepository;
 import com.example.todolist.services.mailService.MailService;
 import com.example.todolist.utils.Validate;
 import com.example.todolist.utils.exceptions.InvalidDetails;
+import jakarta.transaction.Transactional;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -91,8 +92,9 @@ public class UserServiceImpl implements UserService {
     }
 
     //@Scheduled(cron = "0 0 0 * * ?")
+    @Transactional
     @Scheduled(fixedDelay = 120000)
-    private void reminder(){
+    public void reminder(){
         List<ViewToDoListResponse> notExpiredTodo = new ArrayList<>();
         for(User user: userRepository.findAll()){
             for(Todo todo : user.getUsersLists()){
