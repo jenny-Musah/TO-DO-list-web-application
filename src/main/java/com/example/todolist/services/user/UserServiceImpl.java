@@ -97,12 +97,13 @@ public class UserServiceImpl implements UserService {
     public void reminder(){
         List<ViewToDoListResponse> notExpiredTodo = new ArrayList<>();
         for(User user: userRepository.findAll()){
-            for(Todo todo : user.getUsersLists()){
-                if(todo.getDueDate().isAfter(LocalDate.now())){
+            for(Todo todo : user.getUsersLists()) {
+                if (todo.getDueDate().isAfter(LocalDate.now())) {
                     notExpiredTodo.add(createViewResponse(todo));
                 }
             }
-            if(notExpiredTodo == null)mailService.send(user.getEmailAddress(),notExpiredTodo.toString(),"Daily Reminder");
+
+           if(!notExpiredTodo.isEmpty()) mailService.send(user.getEmailAddress(),notExpiredTodo.toString(),"Daily Reminder");
         }
 
     }
