@@ -8,10 +8,12 @@ import com.example.todolist.data.models.Priority;
 import com.example.todolist.data.models.Todo;
 import com.example.todolist.data.models.User;
 import com.example.todolist.data.repositories.ListRepository;
+import com.example.todolist.services.mailService.MailService;
 import com.example.todolist.services.user.UserService;
 import com.example.todolist.utils.Validate;
 import com.example.todolist.utils.exceptions.InvalidDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

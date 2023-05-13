@@ -12,4 +12,14 @@ public class ViewToDoListResponse {
     private String description;
     private String priority;
     private String dueDate;
+
+    @Override
+    public String toString(){
+        return String.format("""
+                List Name : %s%n
+                Due date : %s%n
+                Priority : %s
+                Tasks : %s%n
+                """, listName, description,priority, dueDate);
+    }
 }

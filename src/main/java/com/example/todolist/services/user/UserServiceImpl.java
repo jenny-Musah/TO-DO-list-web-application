@@ -3,20 +3,30 @@ package com.example.todolist.services.user;
 import com.example.todolist.data.dto.requests.UserLoginRequest;
 import com.example.todolist.data.dto.requests.UserSignupRequest;
 import com.example.todolist.data.dto.response.Response;
+import com.example.todolist.data.dto.response.ViewToDoListResponse;
 import com.example.todolist.data.models.Todo;
 import com.example.todolist.data.models.User;
 import com.example.todolist.data.repositories.UserRepository;
+import com.example.todolist.services.mailService.MailService;
 import com.example.todolist.utils.Validate;
 import com.example.todolist.utils.exceptions.InvalidDetails;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
+@EnableScheduling
 public class UserServiceImpl implements UserService {
 
     @Autowired private UserRepository userRepository;
 
+    @Autowired private MailService mailService;
     @Override public User findUser(long userId) {
         return userRepository.findById(userId).orElseThrow(() -> new InvalidDetails("User is not registered..."));
     }
@@ -70,6 +80,29 @@ public class UserServiceImpl implements UserService {
         user.setEmailAddress(userSignupRequest.getEmail());
         user.setPassword(BCrypt.hashpw(userSignupRequest.getPassword(),BCrypt.gensalt()));
         return user;
+    }
+    private ViewToDoListResponse createViewResponse(Todo todo ){
+        ViewToDoListResponse viewToDoListResponse = new ViewToDoListResponse();
+        viewToDoListResponse.setListName(todo.getListName());
+        viewToDoListResponse.setDueDate(String.valueOf(todo.getDueDate()));
+        viewToDoListResponse.setDescription(todo.getDescription() );
+        viewToDoListResponse.setPriority(String.valueOf(todo.getPriority()));
+        return viewToDoListResponse;
+    }
+
+    //@Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(fixedDelay = 120000)
+    public void reminder(){
+        List<ViewToDoListResponse> notExpiredTodo = new ArrayList<>();
+        for(User user: userRepository.findAll()){
+            for(Todo todo : user.getUsersLists()){
+                if(todo.getDueDate().isBefore(LocalDate.now())){
+                    notExpiredTodo.add(createViewResponse(todo));
+                }
+            }
+            mailService.send(user.getEmailAddress(),notExpiredTodo.toString(),"Daily Reminder");
+        }
+
     }
 
 }
