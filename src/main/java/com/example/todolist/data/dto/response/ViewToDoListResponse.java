@@ -19,6 +19,6 @@ public class ViewToDoListResponse {
                 Due date : %s%n
                 Priority : %s
                 Tasks : %s%n
-                """, listName, description,priority, dueDate);
+                """, listName, dueDate, priority, description);
     }
 }
