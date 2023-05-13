@@ -92,11 +92,11 @@ public class UserServiceImpl implements UserService {
 
     //@Scheduled(cron = "0 0 0 * * ?")
     @Scheduled(fixedDelay = 120000)
-    public void reminder(){
+    private void reminder(){
         List<ViewToDoListResponse> notExpiredTodo = new ArrayList<>();
         for(User user: userRepository.findAll()){
             for(Todo todo : user.getUsersLists()){
-                if(todo.getDueDate().isBefore(LocalDate.now())){
+                if(todo.getDueDate().isAfter(LocalDate.now())){
                     notExpiredTodo.add(createViewResponse(todo));
                 }
             }
