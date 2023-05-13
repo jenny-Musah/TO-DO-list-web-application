@@ -92,9 +92,9 @@ public class UserServiceImpl implements UserService {
         return viewToDoListResponse;
     }
 
-    //@Scheduled(cron = "0 0 0 * * ?")
+
     @Transactional
-    @Scheduled(fixedDelay = 120000)
+    @Scheduled(cron = "0 0 0 * * ?")
     public void reminder(){
         List<ViewToDoListResponse> notExpiredTodo = new ArrayList<>();
         for(User user: userRepository.findAll()){

@@ -24,7 +24,7 @@ public class MailServiceImpl implements MailService {
         simpleMailMessage.setSubject(sub);
         simpleMailMessage.setText("""
                 Hi,
-                This is to remind you that you have not yet completed your task, Here are the task\n
+                This is to remind you that you have not yet completed your task, Here are the tasks\n
                 """ + email);
         javaMailSender.send(simpleMailMessage);
     }
