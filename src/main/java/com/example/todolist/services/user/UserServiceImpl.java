@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserService {
                     notExpiredTodo.add(createViewResponse(todo));
                 }
             }
+            System.out.println(notExpiredTodo.toString());
            if(!Objects.equals(notExpiredTodo.toString(), "[]")){mailService.send(user.getEmailAddress(),notExpiredTodo.toString(),"Daily Reminder");}
         }
 
