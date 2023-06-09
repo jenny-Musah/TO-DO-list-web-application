@@ -1,4 +1,11 @@
 # ToDo list web application
+
+## Table of contents
+- [ Introduction ](#introduction)
+- [ Features ](#features)
+- [ End-points ](#end-points)
+
+# Introduction
 *This is a To-do list web application that help users with personal organization of daily activities, schedule planning and personal task management. The application is built using Java Spring Boot, with a MySQL database . The project uses Git for version control.*
 # Features:
 * User registration
@@ -16,6 +23,8 @@
 
 # Signup end-point
 *This end-point creates a new user, it accepts a email address and password which is saved in the database and then returns the user id and a message.*
+
+*A code sample in Node JS using Axios is shown below.*
 # Request
 * Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/users/signup`
 * Method : POST
@@ -23,16 +32,31 @@
   * `Content-Type : application/json`
 * Body: 
 ```
-{
-    "email" : "jennifermusah@gmail.com",
-    "password" : "Jennifer@453"
-}
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://to-do-list-web-application-production.up.railway.app/api/v1/users/signup',
+  'headers': {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "email": "jennymusah99@gmail.com",
+    "password": "Jennifer@453"
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
 ```
 * Fields:
     * `email`(required,String): *The email of the user*
     * `password`(required,String): *The password of the user*
 # Response 1
 *successful request.*
+
 * Status code : `201 created`
 * Body:
 ```
@@ -69,6 +93,8 @@
 
 # Login end-point
 *This end-point is for authentication, it ensures only registered users can access applications end-points. It accepts the email address and password the user used in signing up it then checks if the email exist and also compares the hashed password in the database to the one the user entered if they match it returns the user id and a message.*
+
+*A code sample in Node JS using Axios is shown below.*
 # Request
 * Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/users/login`
 * Method : POST
@@ -76,10 +102,24 @@
   * `Content-Type : application/json`
 * Body:
 ```
-{
-    "email" : "jennifermusah@gmail.com",
-    "password" : "Jennifer@453"
-}
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://to-do-list-web-application-production.up.railway.app/api/v1/users/login',
+  'headers': {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "email": "musah@gmail.com",
+    "password": "Jennifer@453"
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
 ```
 * Fields:
   * `email`(required,String): *The email of the user*
@@ -108,6 +148,8 @@
 ```
 # Create to-do list end-point
 *This end-point is for creating a new to-do list, the end-point accepts,list name, description,due date for list execution, priority of the list and returns the list id and a message.*
+
+*A code sample in Node JS using Axios is shown below.*
 # Request
 * Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/create/1`
 * Method : POST
@@ -117,12 +159,26 @@
   * `userId : long`
 * Body:
 ```
-{
-     "listName" : "Monday food list",
-     "description" : "Rice, fish brook, yellow soup",
-     "dueDate" : "20/04/2023",
-     "priority" : "HIGH"
-}
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://to-do-list-web-application-production.up.railway.app/api/v1/list/create/1',
+  'headers': {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "listName": "Build",
+    "description": "paint two pictures, paint a caterpila",
+    "dueDate": "31/05/2023",
+    "priority": "High"
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
 ```
 * Fields:
   * `listName`(required,String): *To-do list name*
@@ -153,6 +209,8 @@
 ```
 # View all lists end-point
 *This end-point allows user to view all existing to-do lists. It is a get request that returns all the user saved lists.*
+
+*A code sample in Node JS using Axios is shown below.*
 # Request
 * Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/1`
 * Method : GET
@@ -160,6 +218,22 @@
   * `Content-Type : application/json`
 * Parameter : 
   * `userId : long` 
+* Body
+```
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'https://to-do-list-web-application-production.up.railway.app/api/v1/list/1',
+  'headers': {
+    'Content-Type': 'application/json'
+  }
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+```
 # Response
 *successful request.*
 * Status code : `200 ok`
@@ -196,6 +270,8 @@
   * `priority`(required,String)*Priority of task*
 # Update to-do list end-point
 *This end-point allows users update/edit their list, it accepts list name, description, due date, priority , however these fields could be left blank or empty as it has no effect on the initial data, it returns the list id and  a message*
+
+*A code sample in Node JS using Axios is shown below.*
 # Request
 * Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/update/2`
 * Method : POST
@@ -205,12 +281,26 @@
   * `listId : long`
 * Body:
 ```
-{
-     "listName" : "Friday food list",
-     "description" : "French fries, fish brook, yellow soup",
-     "dueDate" : "01/05/2023",
-     "priority" : "HIGH"
-}
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://to-do-list-web-application-production.up.railway.app/api/v1/list/update/2',
+  'headers': {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "listName": "Chicken meal table",
+    "description": "",
+    "dueDate": "",
+    "priority": ""
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
 ```
 * Fields:
   * `listName`(required,String): *To-do list name*
@@ -232,6 +322,8 @@
   * `message`(String): *Request message*
 # View todo end-point
 *This end-point allows user to view a single list. it is a get request.*
+
+*A code sample in Node JS using Axios is shown below.*
 # Request
 * Url : `https://to-do-list-web-application-production.up.railway.app/api/v1/list/todo/2`
 * Method : GET
@@ -239,6 +331,10 @@
   * `Content-Type : application/json`
 * Parameter :
   * `listId : long` 
+* Body :
+```
+
+```
 # Response 1
 *successful request.*
 * Status code : `200 ok`
@@ -266,6 +362,8 @@ List does not exist
 ```
 # Search for to-do end-point
 *This end-point allows users to easily search for a to-do list from thier lists of to-dos using the to-do list name or the list description. it accepts a search word and returns a list of search result*
+
+*A code sample in Node JS using Axios is shown below.*
 # Request
 * Url: `https://to-do-list-web-application-production.up.railway.app/api/v1/list/search/1`
 * Method : POST
@@ -275,9 +373,23 @@ List does not exist
   * `listId : long` 
 * Body:
 ```
-{
-    "searchWord" : "Chicken stew, "
-}
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://to-do-list-web-application-production.up.railway.app/api/v1/list/search/1',
+  'headers': {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "searchWord": "Chicken stew, "
+  })
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
 ```
 * Field :
     * `searchWord`(required,String): *This is the word used to search*
